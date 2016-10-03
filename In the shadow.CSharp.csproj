@@ -71,6 +71,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Game.cs" />
     <Compile Include="Assets\Scripts\MainGestionCamera.cs" />
+    <Compile Include="Assets\Scripts\SettingAndMenu.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
