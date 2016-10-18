@@ -23,6 +23,11 @@ public class MainGestionCamera : MonoBehaviour
     private Quaternion lvl3Rot;
     private Quaternion lvl4Rot;
 
+	public Game	lvl1Game;
+	public Game	lvl2Game;
+	public Game	lvl3Game;
+	public Game	lvl4Game;
+
 
 
     public int move; //initial cam is 42
@@ -39,6 +44,7 @@ public class MainGestionCamera : MonoBehaviour
         lvl4Pos = lvl4.transform.position;
 
         MainRot = Camera.main.transform.rotation;
+
         lvl1Rot = lvl1.transform.rotation;
         lvl2Rot = lvl2.transform.rotation;
         lvl3Rot = lvl3.transform.rotation;
@@ -59,6 +65,7 @@ public class MainGestionCamera : MonoBehaviour
         if (i == 1) {
             Ui.SetActive(false);
             mySlerp(lvl1Pos, lvl1Rot);
+			lvl1Game.setIsGame(true);
         }
         if (i == 2) {
             Ui.SetActive(false);
@@ -82,8 +89,8 @@ public class MainGestionCamera : MonoBehaviour
 
         Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, destV, t);
         Camera.main.transform.rotation = Quaternion.Slerp(Camera.main.transform.rotation, destR, t);
-
-        if (t >= 0.1f)
+		Debug.Log (t);
+        if (t >= 0.17f)
         {
             this.move = 0;
             t = 0;
