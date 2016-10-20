@@ -28,6 +28,8 @@ public class MainGestionCamera : MonoBehaviour
 	public Game	lvl3Game;
 	public Game	lvl4Game;
 
+	public SettingAndMenu set;
+
 
 
     public int move; //initial cam is 42
@@ -81,6 +83,7 @@ public class MainGestionCamera : MonoBehaviour
         }
         if (i == 42) {
             Ui.SetActive(true);
+			set.SetPin();
             mySlerp(MainPos, MainRot);
         }
     }

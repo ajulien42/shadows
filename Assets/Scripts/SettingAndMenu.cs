@@ -12,11 +12,7 @@ public class SettingAndMenu : MonoBehaviour {
     // Use this for initialization
     void Start() {
         LvlSelectUi.SetActive(false);
-		pinLvl [0].interactable = false;
-		pinLvl [1].interactable = false;
-		pinLvl [2].interactable = false;
-		pinLvl [3].interactable = false;
-        if (PlayerPrefs.GetString("firstGame", "nop") != null)
+        if (PlayerPrefs.GetString("firstGame") != "nop")
             RegularInit();
     }
 
@@ -27,21 +23,26 @@ public class SettingAndMenu : MonoBehaviour {
         PlayerPrefs.SetInt("lvl1Access", 0);
         PlayerPrefs.SetInt("lvl2Access", 0);
         PlayerPrefs.SetInt("lvl3Access", 0);
+		PlayerPrefs.SetInt("lvl0Score", -1);
+		PlayerPrefs.SetInt("lvl1Score", -1);
+		PlayerPrefs.SetInt("lvl2Score", -1);
+		PlayerPrefs.SetInt("lvl3Score", -1);
         PlayerPrefs.Save();
-		pinLvl [0].interactable = true;
+		SetPin ();
     }
 
     public void AdminInit() {
-        PlayerPrefs.SetString("firstGame", null);
+        PlayerPrefs.SetString("firstGame", "nop");
         PlayerPrefs.SetInt("lvl0Access", 1);
         PlayerPrefs.SetInt("lvl1Access", 1);
         PlayerPrefs.SetInt("lvl2Access", 1);
         PlayerPrefs.SetInt("lvl3Access", 1);
-		pinLvl [0].interactable = true;
-		pinLvl [1].interactable = true;
-		pinLvl [2].interactable = true;
-		pinLvl [3].interactable = true;
+		PlayerPrefs.SetInt("lvl0Score", -1);
+		PlayerPrefs.SetInt("lvl1Score", 0);
+		PlayerPrefs.SetInt("lvl2Score", 80);
+		PlayerPrefs.SetInt("lvl3Score", -1);
         PlayerPrefs.Save();
+		SetPin ();
     }
 
     public void SetLvlAcces(int num, int ok) {
@@ -51,7 +52,61 @@ public class SettingAndMenu : MonoBehaviour {
 
     }
 
-    //MENU
+	//CHECK Pin Lvl Every Time camera return to inGameUI "if" nightmare under this point
+	public void SetPin(){
+		pinLvl [0].interactable = false;
+		pinLvl [1].interactable = false;
+		pinLvl [2].interactable = false;
+		pinLvl [3].interactable = false;
+		Debug.Log (PlayerPrefs.GetInt("lvl2Score"));
+		if (PlayerPrefs.GetInt ("lvl0Access") == 1) {
+			pinLvl [0].interactable = true;
+			ColorBlock cb = pinLvl[0].colors;
+			if (PlayerPrefs.GetInt("lvl0Score") > 0)
+				cb.normalColor = Color.green;
+			if (PlayerPrefs.GetInt("lvl0Score") == 0)
+				cb.normalColor = Color.red;
+			else
+				cb.normalColor = Color.white;
+			pinLvl[0].colors = cb;
+		}
+		if (PlayerPrefs.GetInt ("lvl1Access") == 1) {
+			pinLvl [1].interactable = true;
+			ColorBlock cb = pinLvl[1].colors;
+			if (PlayerPrefs.GetInt("lvl1Score") > 0)
+				cb.normalColor = Color.green;
+			else if (PlayerPrefs.GetInt("lvl1Score") == 0)
+				cb.normalColor = Color.red;
+			else
+				cb.normalColor = Color.white;
+			pinLvl[1].colors = cb;
+		}
+		if (PlayerPrefs.GetInt ("lvl2Access") == 1) {
+			pinLvl [2].interactable = true;
+			ColorBlock cb = pinLvl[2].colors;
+			if (PlayerPrefs.GetInt("lvl2Score") > 0)
+				cb.normalColor = Color.green;
+			else if (PlayerPrefs.GetInt("lvl2Score") == 0)
+				cb.normalColor = Color.red;
+			else
+				cb.normalColor = Color.white;
+			pinLvl[2].colors = cb;
+		}
+		if (PlayerPrefs.GetInt ("lvl3Access") == 1) {
+			pinLvl [3].interactable = true;
+			ColorBlock cb = pinLvl[3].colors;
+			if (PlayerPrefs.GetInt("lvl3Score") > 0)
+				cb.normalColor = Color.green;
+			else if (PlayerPrefs.GetInt("lvl3Score") == 0)
+				cb.normalColor = Color.red;
+			else
+				cb.normalColor = Color.white;
+			pinLvl[3].colors = cb;
+		}
+	}
+	// end of nightmare
+
+	//MENU
 
     public void RegularGameButton() {
         MainMenu.SetActive(false);
@@ -69,23 +124,18 @@ public class SettingAndMenu : MonoBehaviour {
         RegularInit();
     }
 
-    //todo
+    //todo add music
 
     public void sound() { 
 		ColorBlock cb = soundButton.colors;
-		Debug.Log (soundButton.colors.highlightedColor);
 		if (soundButton.colors.highlightedColor == Color.red){
-//			Debug.Log (" toto");
 			cb.highlightedColor = Color.green;
-			soundButton.colors= cb;
+			soundButton.colors = cb;
 		}
 		else if (soundButton.colors.highlightedColor == Color.green){
-//			Debug.Log (" caca");
 			cb.highlightedColor = Color.red;
-			soundButton.colors= cb;
+			soundButton.colors = cb;
 		}
-        //Debug.Log(soundButton.colors.highlightedColor);
-//        Debug.Log(Color.green);
     }
 
 }
