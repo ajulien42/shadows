@@ -38,19 +38,24 @@ public class SettingAndMenu : MonoBehaviour {
         PlayerPrefs.SetInt("lvl2Access", 1);
         PlayerPrefs.SetInt("lvl3Access", 1);
 		PlayerPrefs.SetInt("lvl0Score", -1);
-		PlayerPrefs.SetInt("lvl1Score", 0);
-		PlayerPrefs.SetInt("lvl2Score", 80);
+		PlayerPrefs.SetInt("lvl1Score", -1);
+		PlayerPrefs.SetInt("lvl2Score", -1);
 		PlayerPrefs.SetInt("lvl3Score", -1);
         PlayerPrefs.Save();
 		SetPin ();
     }
-
-    public void SetLvlAcces(int num, int ok) {
+	// SetLvlAcces(0, 1) valid acces to lvl0
+    private void SetLvlAcces(int num, int ok) {
         PlayerPrefs.SetInt("lvl" + num.ToString() + "Acces", ok);
         PlayerPrefs.Save();
-		pinLvl [num].interactable = true;
-
     }
+	// SetLvlScore(0, 25) set score of lvl to 25
+	public void SetLvlScore(int lvl, int score){
+		PlayerPrefs.SetInt ("lvl" + lvl.ToString () + "Score", score);
+		PlayerPrefs.Save();
+		if (score > 0)
+			SetLvlAcces(lvl + 1, 1);
+	}
 
 	//CHECK Pin Lvl Every Time camera return to inGameUI "if" nightmare under this point
 	public void SetPin(){

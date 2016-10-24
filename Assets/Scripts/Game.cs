@@ -8,6 +8,7 @@ public class Game : MonoBehaviour
     public GameObject holderRotY;
     public GameObject holderPos;
     public GameObject wall;
+	public string hint;
 
     private Quaternion startRotX;
     private Quaternion startRotY;
@@ -31,6 +32,8 @@ public class Game : MonoBehaviour
         
         rend = wall.GetComponent<Renderer>();
         
+		diffAnglesX = 0f;
+		diffAnglesY = 0f;
         if (isRotX)
             holderRotX.transform.rotation *= Quaternion.Euler(0, 0, Random.Range(50, 310));
 
@@ -51,13 +54,13 @@ public class Game : MonoBehaviour
             Debug.Log(diffAnglesX);
             color = new Color(0, 0, (180 - diffAnglesX) / 180);
             rend.material.SetColor("_SpecColor", color);
-
         }
-    }
-
-    public void setIsGame(bool bb)
-    {
-        isGameOn = bb;
+		if (isRotY) {
+		}
+		if (isPos) {
+		}
+		if (diffAnglesX < 1f && diffAnglesY < 1f)
+			isGameOn = false;
     }
 
     void OnMouseDrag()

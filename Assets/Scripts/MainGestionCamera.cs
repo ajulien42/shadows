@@ -67,7 +67,6 @@ public class MainGestionCamera : MonoBehaviour
         if (i == 1) {
             Ui.SetActive(false);
             mySlerp(lvl1Pos, lvl1Rot);
-			lvl1Game.setIsGame(true);
         }
         if (i == 2) {
             Ui.SetActive(false);
