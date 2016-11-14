@@ -46,15 +46,24 @@ public class SettingAndMenu : MonoBehaviour {
     }
 	// SetLvlAcces(0, 1) valid acces to lvl0
     private void SetLvlAcces(int num, int ok) {
-        PlayerPrefs.SetInt("lvl" + num.ToString() + "Acces", ok);
+        Debug.Log(num);
+        Debug.Log(ok);
+        PlayerPrefs.SetInt("lvl" + num.ToString () + "Access", ok);
         PlayerPrefs.Save();
+        Debug.Log("lvl1acces");
+        Debug.Log(PlayerPrefs.GetInt("lvl1Access"));
     }
-	// SetLvlScore(0, 25) set score of lvl to 25
-	public void SetLvlScore(int lvl, int score){
-		PlayerPrefs.SetInt ("lvl" + lvl.ToString () + "Score", score);
+    // SetLvlScore(0, 25) set score of lvl to 25
+    public void SetLvlScore(int lvl, int score){
+      //  Debug.Log(lvl);
+      //  Debug.Log(score);
+
+        PlayerPrefs.SetInt ("lvl" + lvl.ToString () + "Score", score);
 		PlayerPrefs.Save();
-		if (score > 0)
-			SetLvlAcces(lvl + 1, 1);
+        Debug.Log("lvl0score");
+        Debug.Log(PlayerPrefs.GetInt("lvl0Score"));
+        if (score > 0)
+			SetLvlAcces(lvl += 1, 1);
 	}
 
 	//CHECK Pin Lvl Every Time camera return to inGameUI "if" nightmare under this point
@@ -63,17 +72,15 @@ public class SettingAndMenu : MonoBehaviour {
 		pinLvl [1].interactable = false;
 		pinLvl [2].interactable = false;
 		pinLvl [3].interactable = false;
-		Debug.Log (PlayerPrefs.GetInt("lvl2Score"));
+
 		if (PlayerPrefs.GetInt ("lvl0Access") == 1) {
-			pinLvl [0].interactable = true;
-			ColorBlock cb = pinLvl[0].colors;
+            pinLvl [0].interactable = true;
 			if (PlayerPrefs.GetInt("lvl0Score") > 0)
-				cb.normalColor = Color.green;
-			if (PlayerPrefs.GetInt("lvl0Score") == 0)
-				cb.normalColor = Color.red;
+                pinLvl[0].image.color = Color.green;
+			else if (PlayerPrefs.GetInt("lvl0Score") == 0)
+                pinLvl[0].image.color = Color.red;
 			else
-				cb.normalColor = Color.white;
-			pinLvl[0].colors = cb;
+                pinLvl[0].image.color = Color.white;
 		}
 		if (PlayerPrefs.GetInt ("lvl1Access") == 1) {
 			pinLvl [1].interactable = true;
@@ -142,5 +149,4 @@ public class SettingAndMenu : MonoBehaviour {
 			soundButton.colors = cb;
 		}
     }
-
 }

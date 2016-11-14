@@ -10,6 +10,8 @@ public class MainGestionCamera : MonoBehaviour
     public GameObject lvl4;
 
     public GameObject Ui;
+    public GameObject InGameUi;
+    public GameObject menuUi;
 
     private Vector3 MainPos;
     private Vector3 lvl1Pos;
@@ -81,9 +83,19 @@ public class MainGestionCamera : MonoBehaviour
             mySlerp(lvl4Pos, lvl4Rot);
         }
         if (i == 42) {
-            Ui.SetActive(true);
-			set.SetPin();
             mySlerp(MainPos, MainRot);
+            if (this.move == 0) {
+                set.SetPin();
+                Ui.SetActive(true);
+            }
+        }
+        if (i == 43) {
+            mySlerp(MainPos, MainRot);
+            if (this.move == 0)
+            {
+                set.SetPin();
+                menuUi.SetActive(true);
+            }
         }
     }
     private void mySlerp(Vector3 destV, Quaternion destR) {
@@ -91,8 +103,8 @@ public class MainGestionCamera : MonoBehaviour
 
         Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, destV, t);
         Camera.main.transform.rotation = Quaternion.Slerp(Camera.main.transform.rotation, destR, t);
-		Debug.Log (t);
-        if (t >= 0.17f)
+
+        if (t >= 0.10f)
         {
             this.move = 0;
             t = 0;
@@ -102,6 +114,9 @@ public class MainGestionCamera : MonoBehaviour
     }
 
     public void setMoveTo(int i) {
+        Ui.SetActive(false);
+        InGameUi.SetActive(false);
+        menuUi.SetActive(false);
         this.move = i;
     }
 }

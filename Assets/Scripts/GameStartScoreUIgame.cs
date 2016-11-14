@@ -16,7 +16,9 @@ public class GameStartScoreUIgame : MonoBehaviour {
 	public	GameObject inGameUI;
 
 	public	Game[] lvl;
-	public	SettingAndMenu set;
+    public Game[] lvldouble;
+    public	SettingAndMenu set;
+    public  bool doublemodel;
 
 	private	bool running;
 	private	int lvlrunning;
@@ -29,11 +31,10 @@ public class GameStartScoreUIgame : MonoBehaviour {
 	void Update () {
 		runLvl ();
 	}
-
+    //to do double
 	public void setLvl(int i){
 		if (running == false) {
 			scoreFloat = 100f;
-			running = true;
 			inGameUI.SetActive (true);
 			showHideButton.SetActive (false);
 			lvlrunning = i;
@@ -77,7 +78,10 @@ public class GameStartScoreUIgame : MonoBehaviour {
 
 	public void restartLvl(){
 		if (running == false)
-			setLvl (lvlrunning);
+        {
+            lvl[lvlrunning].initRandom();
+            setLvl(lvlrunning);
+        }
 	}
 		
 }
