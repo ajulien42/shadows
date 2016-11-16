@@ -19,14 +19,17 @@ ModelImporter:
     2300002: croc_eye
     2300004: croc_iris
     2300006: croc_teeth
+    2300008: //RootNode
     3300000: croc_body
     3300002: croc_eye
     3300004: croc_iris
     3300006: croc_teeth
+    3300008: //RootNode
     4300000: croc_body
     4300002: croc_iris
     4300004: croc_teeth
     4300006: croc_eye
+    4300008: croc
     7400000: Default Take
     9500000: //RootNode
   materials:

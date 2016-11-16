@@ -24,6 +24,7 @@ public class Game : MonoBehaviour
     public bool isRotX;
     public bool isRotY;
     public bool isPos;
+    public bool reversePos;
 
     // Use this for initialization
     void Start()
@@ -66,13 +67,13 @@ public class Game : MonoBehaviour
         if (isPos) {
             colorPos = 1 - Vector3.Distance(startPos, holderPos.transform.position);
             foreach (Material mat in rendModel.materials)
-                mat.SetColor("_SpecColor", color);
+                mat.SetColor("_SpecColor", new Color(colorPos, 0, 0));
         }
         color = new Color(0, colory, colorx);
         rend.material.SetColor("_SpecColor", color);
         
         
-        if (diffAnglesX < 4f && diffAnglesY < 4f && Input.GetMouseButton(0) == false && Input.GetMouseButton(1) == false && colorPos > 0.9)
+        if (diffAnglesX < 6f && diffAnglesY < 6f && Input.GetMouseButton(0) == false && colorPos > 0.9)
             isGameOn = false;
     }
 
@@ -101,8 +102,16 @@ public class Game : MonoBehaviour
                 float posX = Input.GetAxis("Mouse X") * movSpeed * Mathf.Deg2Rad;
                 float posY = Input.GetAxis("Mouse Y") * movSpeed * Mathf.Deg2Rad;
 
-                holderPos.transform.Translate(holderPos.transform.up * posX);
-                holderPos.transform.Translate(holderPos.transform.right * -posY);
+                if (reversePos)
+                {
+                    holderPos.transform.Translate(holderPos.transform.up * -posX);
+                    holderPos.transform.Translate(holderPos.transform.right * posY);
+                }
+                else
+                {
+                    holderPos.transform.Translate(holderPos.transform.up * posX);
+                    holderPos.transform.Translate(holderPos.transform.right * -posY);
+                }
             }
         }
     }
